@@ -7,7 +7,7 @@
         Добро пожаловать! Здесь мы меняем мир к лучшему, присоединяйся прямо сейчас!
       </p>
       <img class='vk' src="../statics/icons/vk.svg" alt="">
-      <button class='font-text' @click="auth()">Авторизация</button>
+      <a href='https://leadersofdigital-backend.server.bonch.dev/provider/vkontakte/?callback_url=http://127.0.0.1:5000/callback/' class='font-text'>Авторизация</a>
     </div>
   </q-page>
 </template>
@@ -44,12 +44,13 @@ export default {
   .vk {
     margin-bottom: 12px;
   }
-  button {
+  a {
     background: linear-gradient(102.21deg, #4065C5 0%, #8897E6 100%);
     border-radius: 3px;
     border: none;
     color: white;
     padding: 11px 50px;
+    text-decoration: none;
   }
 }
 </style>
