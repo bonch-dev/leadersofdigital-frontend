@@ -10,11 +10,11 @@
       >
         <q-route-tab name="profile"
           label="Активные"
-          :to="{ name: 'profile.active' }"
+          :to="{ name: 'reply.active' }"
         />
         <q-route-tab name="events"
           label="Архив"
-          :to="{ name: 'profile.archive' }"
+          :to="{ name: 'reply.archive' }"
         />
       </q-tabs>
       <router-view />

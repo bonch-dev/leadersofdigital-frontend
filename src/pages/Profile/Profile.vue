@@ -10,11 +10,11 @@
       >
         <q-route-tab name="profile"
           label="Профиль"
-          :to="{ name: 'profile' }"
+          :to="{ name: 'profile.active' }"
         />
         <q-route-tab name="events"
           label="Отклики"
-          :to="{ name: 'reply' }"
+          :to="{ name: 'reply.active' }"
           :style=" false ? 'background: #CFD3F8;' : ''"
         />
       </q-tabs>

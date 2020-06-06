@@ -1,15 +1,11 @@
 <template>
   <div>
-    <news-card v-for="item in news2" :key="item.id" :user="item.user" :title="item.title" :date="item.date" :id="item.id" :position="item.position" :like="item.like" :rating="item.rating"></news-card>
     <profile-video></profile-video>
-    <blog-card v-for="item in news" :key="item.id" :user="item.user" :title="item.title" :date="item.date" :id="item.id" :rating="item.rating" ></blog-card>
   </div>
 </template>
 
 <script>
 import ProfileVideo from '../../components/ProfileVideo'
-import BlogCard from '../../components/BlogCard'
-import NewsCard from '../../components/NewsCard'
 
 export default {
   data () {
@@ -25,9 +21,7 @@ export default {
     }
   },
   components: {
-    NewsCard,
-    ProfileVideo,
-    BlogCard
+    ProfileVideo
   }
 }
 </script>

@@ -13,13 +13,13 @@
             <span class='font-bold'>56864</span>
           </div>
         </div>
-        <button>Объединиться</button>
+        <button disabled>{{ false ? 'Объединиться' : 'Вы подписаны' }}</button>
       </div>
     </div>
     <div class="user__info">
       <div class='flex'>
         <h2 class='font-header no-margin q-pr-md'>Джек Лондон</h2>
-        <q-icon class="fa fa-edit" style="font-size: 20px; color: #989898;"></q-icon>
+        <q-icon v-if="false" class="fa fa-edit" style="font-size: 20px; color: #989898;"></q-icon>
       </div>
       <p>Я люблю свой район и хочу сделать его лучше! Приходите на мои мероприятия, вместе мы сможем все!</p>
       <div class="user__info_social">
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="user__rank">
-      <img src="../../statics/images/rank.png" alt="">
+      <img src="../../statics/images/rank-1.png" alt="">
       <div>
         <h6 class='font-lable'>Ваш ранг</h6>
         <h5 class='font-bold'>Гражданин</h5>

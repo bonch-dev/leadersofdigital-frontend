@@ -1,7 +1,7 @@
 <template>
   <div class='initiative'>
     <div class='initiative__top'>
-      <img src="../statics/images/initiative-back.png" alt="">
+      <img src="../../statics/images/initiative-back.png" alt="">
       <h3 class='font-header'>Проект недели</h3>
       <p class='font-text'>Тут будет текст, который воодушевит, вдохновит и еще и все объяснит (или нет), но пояснить что происходит точно надо</p>
     </div>

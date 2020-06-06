@@ -28,7 +28,11 @@
             <q-icon  :name="link.icon" style="font-size: 20px" />
           </q-item>
         </div>
-        <button>
+        <button v-if="this.$route.name !== 'profile.active' &&
+                      this.$route.name !== 'profile.archive' &&
+                      this.$route.name !== 'reply.active' &&
+                      this.$route.name !== 'reply.archive'"
+        >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#0C1120"/>
           </svg>
@@ -44,12 +48,15 @@ export default {
   data () {
     return {
       links: [
-        { icon: 'fas fa-user', url: '/profile' },
+        { icon: 'fas fa-user', url: `/profile/${1}` },
         { icon: 'fas fa-exclamation', url: '/news' },
         { icon: 'fas fa-pen', url: '/blog' },
         { icon: 'fas fa-play-circle', url: '/initiative' }
       ]
     }
+  },
+  beforeMount () {
+    console.log(this.$route)
   }
 }
 </script>
