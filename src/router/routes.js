@@ -1,76 +1,98 @@
 
 const routes = [
   {
-    path: '/login',
-    component: () => import('pages/Login.vue')
+    path: '/',
+    component: () => import('layouts/ClearLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'start',
+        component: () => import('pages/Index.vue')
+      }
+    ]
   },
   {
-    path: '/',
+    path: '/login',
+    component: () => import('layouts/ClearLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'login',
+        component: () => import('pages/Login.vue')
+      }
+    ]
+  },
+  {
+    path: '/profile',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
       {
-        path: 'profile',
-        component: () => import('pages/profile/Profile.vue'),
-        children: [
-          {
-            name: 'profile',
-            path: '/',
-            component: () => import('pages/profile/User.vue'),
-            children: [
-              {
-                name: 'profile.active',
-                path: '/',
-                component: () => import('pages/profile/Active.vue')
-              },
-              {
-                name: 'profile.archive',
-                path: 'archive',
-                component: () => import('pages/profile/Archive.vue')
-              }
-            ]
-          },
-          {
-            name: 'reply',
-            path: 'reply',
-            component: () => import('pages/reply/Reply.vue'),
-            children: [
-              {
-                name: 'reply.active',
-                path: '/',
-                component: () => import('pages/reply/Active.vue')
-              },
-              {
-                name: 'reply.archive',
-                path: 'archive',
-                component: () => import('pages/reply/Archive.vue')
-              }
-            ]
-          }
-        ]
+        path: '',
+        name: 'profile',
+        component: () => import('pages/profile/User.vue')
       },
       {
-        path: 'news',
+        path: 'active',
+        name: 'profile.active',
+        component: () => import('pages/profile/Active')
+      },
+      {
+        path: 'archive',
+        name: 'profile.archive',
+        component: () => import('pages/profile/Archive.vue')
+      }
+    ]
+  },
+  {
+    path: '/reply',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'reply',
+        component: () => import('pages/reply/Reply.vue')
+      },
+      {
+        path: 'active',
+        name: 'reply.active',
+        component: () => import('pages/reply/Active.vue')
+      },
+      {
+        path: 'archive',
+        name: 'reply.archive',
+        component: () => import('pages/reply/Archive.vue')
+      }
+    ]
+  },
+  {
+    path: '/news',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'news',
         component: () => import('pages/News.vue')
-      },
+      }
+    ]
+  },
+  {
+    path: '/initiative',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
       {
-        path: 'initiative',
-        component: () => import('pages/Initiative.vue'),
-        children: [
-          {
-            name: 'initiative.current',
-            path: '/'
-            // component: () => import('pages/reply/Active.vue')
-          },
-          {
-            name: 'initiative.archive',
-            path: 'archive'
-            // component: () => import('pages/reply/Archive.vue')
-          }
-        ]
-      },
+        path: '',
+        name: 'initiative',
+        component: () => import('pages/Initiative.vue')
+      }
+    ]
+  },
+  {
+    path: '/blog',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
       {
-        path: 'blog',
+        path: '',
+        name: 'initiative',
         component: () => import('pages/Blog.vue')
       }
     ]

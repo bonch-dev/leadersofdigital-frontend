@@ -1,6 +1,5 @@
 <template>
-  <q-layout>
-    <loading v-if='false'></loading>
+  <q-page>
     <div class='login' v-if='true'>
       <img src="../statics/images/bear.png" height="137" alt="">
       <h3 class='font-bold'>Единство</h3>
@@ -8,20 +7,18 @@
         Добро пожаловать! Здесь мы меняем мир к лучшему, присоединяйся прямо сейчас!
       </p>
       <img class='vk' src="../statics/icons/vk.svg" alt="">
-      <button class='font-text'>Авторизация</button>
+      <button class='font-text' @click="auth()">Авторизация</button>
     </div>
-  </q-layout>
+  </q-page>
 </template>
 
 <script>
-import Loading from '../components/Loading'
-
+import { mapActions } from 'vuex'
 export default {
-  data () {
-    return {}
-  },
-  components: {
-    Loading
+  methods: {
+    ...mapActions({
+      auth: 'user/auth/auth'
+    })
   }
 }
 </script>
