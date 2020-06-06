@@ -29,7 +29,7 @@ const routes = [
       {
         path: '',
         name: 'auth',
-        component: () => import('pages/auth.vue')
+        component: () => import('pages/Auth.vue')
       }
     ]
   },
