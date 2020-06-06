@@ -23,8 +23,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-
+  data () {
+    return {
+    }
+  },
+  methods: {
+    ...mapActions({
+      loadUser: 'user/user/loadUser'
+    })
+  },
+  mounted () {
+    this.loadUser()
+  }
 }
 </script>
 

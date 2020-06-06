@@ -6,11 +6,11 @@
         <div class='stats'>
           <div>
             <p class='font-lable'>Карма</p>
-            <span class='font-bold'>56864</span>
+            <span class='font-bold'>{{ user.karma }}</span>
           </div>
           <div>
-            <p class='font-lable'>Карма</p>
-            <span class='font-bold'>56864</span>
+            <p class='font-lable'>Влияние</p>
+            <span class='font-bold'>{{ user.influence }}</span>
           </div>
         </div>
         <button disabled>{{ false ? 'Объединиться' : 'Вы подписаны' }}</button>
@@ -18,7 +18,7 @@
     </div>
     <div class="user__info">
       <div class='flex'>
-        <h2 class='font-header no-margin q-pr-md'>Джек Лондон</h2>
+        <h2 class='font-header no-margin q-pr-md'>{{ user.name }}</h2>
         <q-icon v-if="false" class="fa fa-edit" style="font-size: 20px; color: #989898;"></q-icon>
       </div>
       <p>Я люблю свой район и хочу сделать его лучше! Приходите на мои мероприятия, вместе мы сможем все!</p>
@@ -58,8 +58,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user/user/user'
+    })
+  }
 }
 </script>
 

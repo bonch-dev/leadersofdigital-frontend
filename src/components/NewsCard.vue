@@ -182,7 +182,7 @@ a{
     border: none;
   }
   span {
-    margin: 0 12px;
+    margin: 0 7px;
   }
   .like {
     color: $solid-blue;

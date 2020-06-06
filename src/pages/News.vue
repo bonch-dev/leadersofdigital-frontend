@@ -17,18 +17,20 @@
         </svg>
       </div>
     </div>
-    <div class="news__items">
-      <news-card v-for="item in news" :key="item.id" :user="item.user" :title="item.title" :date="item.date" :id="item.id" :position="item.position" :like="item.like" :rating="item.rating" ></news-card>
+    <div class="news__items" v-if="show">
+      <news-card v-for="item in events" :key="item.id" :user="item.user" :title="item.title" :date="news[1].date" :id="item.id" :position="item.place" :like="item.karma" :rating="item.rate" ></news-card>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import NewsCard from 'components/NewsCard'
 
 export default {
   data () {
     return {
+      show: false,
       options: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ],
@@ -40,6 +42,22 @@ export default {
   },
   components: {
     NewsCard
+  },
+  computed: {
+    ...mapGetters({
+      events: 'events/events'
+    })
+  },
+  methods: {
+    ...mapActions({
+      loadEvents: 'events/loadEvents'
+    })
+  },
+  beforeMount () {
+    this.loadEvents()
+      .then(() => {
+        this.show = true
+      })
   }
 }
 </script>

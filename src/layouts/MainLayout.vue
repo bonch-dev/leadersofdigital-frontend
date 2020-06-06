@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -55,6 +57,11 @@ export default {
         { icon: 'how_to_vote', url: '/vote' }
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user/user/user'
+    })
   }
 }
 </script>
