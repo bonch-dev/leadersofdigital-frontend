@@ -98,7 +98,7 @@ const routes = [
       {
         path: ':id',
         name: 'blog.article',
-        component: () => import('pages/Blog.vue')
+        component: () => import('pages/BlogArticle.vue')
       }
     ]
   }
