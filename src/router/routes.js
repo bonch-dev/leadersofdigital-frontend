@@ -154,6 +154,17 @@ const routes = [
         component: () => import('pages/VoteFull.vue')
       }
     ]
+  },
+  {
+    path: '/add',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'add',
+        component: () => import('pages/AddPage.vue')
+      }
+    ]
   }
 ]
 
