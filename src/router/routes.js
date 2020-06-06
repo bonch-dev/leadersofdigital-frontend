@@ -138,6 +138,22 @@ const routes = [
         component: () => import('pages/BlogArticle.vue')
       }
     ]
+  },
+  {
+    path: '/vote',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'vote',
+        component: () => import('pages/Vote.vue')
+      },
+      {
+        path: ':id',
+        name: 'vote.page',
+        component: () => import('pages/VoteFull.vue')
+      }
+    ]
   }
 ]
 
