@@ -7,7 +7,7 @@
         Добро пожаловать! Здесь мы меняем мир к лучшему, присоединяйся прямо сейчас!
       </p>
       <img class='vk' src="../statics/icons/vk.svg" alt="">
-      <a href='https://leadersofdigital-backend.server.bonch.dev/provider/vkontakte/?callback_url=http://127.0.0.1:5000/callback/' class='font-text'>Авторизация</a>
+      <a href='https://leadersofdigital-backend.server.bonch.dev/provider/vkontakte/?callback_url=https://leadersofdigital-frontend-staging.server.bonch.dev/callback/' class='font-text'>Авторизация</a>
     </div>
   </q-page>
 </template>
