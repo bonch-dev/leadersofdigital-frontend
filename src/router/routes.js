@@ -23,7 +23,18 @@ const routes = [
     ]
   },
   {
-    path: '/profile/:id',
+    path: '/callback/:token',
+    component: () => import('layouts/ClearLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'auth',
+        component: () => import('pages/auth.vue')
+      }
+    ]
+  },
+  {
+    path: '/profile',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
