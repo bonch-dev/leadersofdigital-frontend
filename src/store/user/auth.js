@@ -16,7 +16,6 @@ const mutations = {
 
 const actions = {
   LoadProfileInfo ({ commit }) {
-    API.defaults.headers.common = { 'Authorization': 'Bearer ' + state.token }
     return new Promise((resolve, reject) => {
       API.get('api/users/me')
         .then(response => {
