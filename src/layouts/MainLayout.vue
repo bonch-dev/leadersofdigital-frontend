@@ -48,15 +48,13 @@ export default {
   data () {
     return {
       links: [
-        { icon: 'fas fa-user', url: `/profile/${1}` },
+        { icon: 'person', url: `/profile/${1}` },
         { icon: 'fas fa-exclamation', url: '/news' },
-        { icon: 'fas fa-pen', url: '/blog' },
-        { icon: 'fas fa-play-circle', url: '/initiative' }
+        { icon: 'create', url: '/blog' },
+        { icon: 'play_circle_filled', url: '/initiative' },
+        { icon: 'how_to_vote', url: '/vote' }
       ]
     }
-  },
-  beforeMount () {
-    console.log(this.$route)
   }
 }
 </script>
