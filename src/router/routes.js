@@ -38,7 +38,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: ':id',
         component: () => import('pages/Profile/Profile.vue'),
         children: [
           {

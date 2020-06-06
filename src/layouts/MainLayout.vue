@@ -46,7 +46,7 @@ export default {
   data () {
     return {
       links: [
-        { icon: 'person', url: '/profile' },
+        { icon: 'person', url: '/profile/me' },
         { icon: 'fas fa-exclamation', url: '/news' },
         { icon: 'create', url: '/blog' },
         { icon: 'play_circle_filled', url: '/initiative' },

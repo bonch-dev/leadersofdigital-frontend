@@ -1,7 +1,7 @@
 <template>
   <div class='user'>
     <div class="user__preview">
-      <img src="../../statics/images/user-1.png" alt="">
+      <img :src="user.photo" alt="">
       <div class="user__preview_right">
         <div class='stats'>
           <div>
@@ -60,12 +60,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {}
-  },
   computed: {
     ...mapGetters({
-      user: 'user/user/user'
+      user: 'user/user/selectedProfile'
     })
   }
 }

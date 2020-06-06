@@ -35,7 +35,8 @@ export default {
     })
   },
   mounted () {
-    this.loadUser()
+    const id = this.$route.params.id
+    this.loadUser(id)
   }
 }
 </script>
