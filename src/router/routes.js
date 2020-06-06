@@ -92,7 +92,12 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'initiative',
+        name: 'blog',
+        component: () => import('pages/Blog.vue')
+      },
+      {
+        path: ':id',
+        name: 'blog.article',
         component: () => import('pages/Blog.vue')
       }
     ]
