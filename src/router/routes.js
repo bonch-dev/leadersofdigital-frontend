@@ -29,17 +29,17 @@ const routes = [
       {
         path: '',
         name: 'profile',
-        component: () => import('pages/profile/User.vue')
+        component: () => import('pages/Profile/User.vue')
       },
       {
         path: 'active',
         name: 'profile.active',
-        component: () => import('pages/profile/Active')
+        component: () => import('pages/Profile/Active')
       },
       {
         path: 'archive',
         name: 'profile.archive',
-        component: () => import('pages/profile/Archive.vue')
+        component: () => import('pages/Profile/Archive.vue')
       }
     ]
   },
@@ -50,17 +50,17 @@ const routes = [
       {
         path: '',
         name: 'reply',
-        component: () => import('pages/reply/Reply.vue')
+        component: () => import('pages/Reply/Reply.vue')
       },
       {
         path: 'active',
         name: 'reply.active',
-        component: () => import('pages/reply/Active.vue')
+        component: () => import('pages/Reply/Active.vue')
       },
       {
         path: 'archive',
         name: 'reply.archive',
-        component: () => import('pages/reply/Archive.vue')
+        component: () => import('pages/Reply/Archive.vue')
       }
     ]
   },
