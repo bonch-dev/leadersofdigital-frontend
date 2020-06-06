@@ -4,7 +4,7 @@
       <img src="../statics/images/news.png" alt="">
       <div class="blogCard__header flex justify-between items-center">
         <div class="blogCard__user flex items-center">
-          <div class="blogCard__photo">
+          <div class="blogCard__photo" @click="$router.push({ name: 'blog.article', params: { id: id }})">
             <img :src="user.image" alt="">
           </div>
           <div class="blogCard__name">{{user.name}}</div>

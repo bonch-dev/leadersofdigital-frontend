@@ -15,7 +15,9 @@
             </svg>
           </div>
         </div>
-        <div><img src="../statics/images/card-img.png" width="100%"></div>
+        <div @click="$router.push({ name: 'news.article', params: { id: id }})">
+          <img src="../statics/images/card-img.png" width="100%">
+        </div>
 
         <q-card-section>
           <div class="time-card q-mb-sm text-dark font-lable">
@@ -23,7 +25,7 @@
           </div>
           <div class="ttl-card q-mb-sm font-header2"
                style="line-height: 28px !important; color: #000 !important;"
-               @click="$router.push({ name: 'news.article', params: { id: 1 }})"
+               @click="$router.push({ name: 'news.article', params: { id: id }})"
           >
             {{ title }}
           </div>
