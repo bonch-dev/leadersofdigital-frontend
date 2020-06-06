@@ -1,7 +1,7 @@
 import API from '../../boot/API'
 
 const state = {
-  info: null
+  token: localStorage.getItem('user-token') || ''
 }
 
 const getters = {
@@ -15,11 +15,15 @@ const mutations = {
 }
 
 const actions = {
-  auth ({ commit }, data) {
-    console.log(123)
+  LoadProfileInfo ({ commit }) {
+    API.defaults.headers.common = { 'Authorization': 'Bearer ' + state.token }
     return new Promise((resolve, reject) => {
-      API.get('provider/vkontakte', { params: { callback_url: 'http://127.0.0.1/callback/' } })
+      API.get('api/users/me')
         .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          reject(error)
         })
     })
   }
