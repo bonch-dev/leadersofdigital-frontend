@@ -28,11 +28,7 @@
             <q-icon  :name="link.icon" style="font-size: 20px" />
           </q-item>
         </div>
-        <button v-if="this.$route.name !== 'profile.active' &&
-                      this.$route.name !== 'profile.archive' &&
-                      this.$route.name !== 'reply.active' &&
-                      this.$route.name !== 'reply.archive'"
-        >
+        <button v-if="page === 'news' || page === 'blog' || page === 'initiative.current' || page === 'vote'" @click="$router.push({ name: 'add', params: { type: page } })">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#0C1120"/>
           </svg>
@@ -50,7 +46,7 @@ export default {
   data () {
     return {
       links: [
-        { icon: 'person', url: `/profile/${1}` },
+        { icon: 'person', url: '/profile/me' },
         { icon: 'fas fa-exclamation', url: '/news' },
         { icon: 'create', url: '/blog' },
         { icon: 'play_circle_filled', url: '/initiative' },
@@ -61,7 +57,10 @@ export default {
   computed: {
     ...mapGetters({
       user: 'user/user/user'
-    })
+    }),
+    page () {
+      return this.$route.name
+    }
   }
 }
 </script>

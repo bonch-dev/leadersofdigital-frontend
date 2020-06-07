@@ -9,7 +9,7 @@ export default {
   beforeMount () {
     localStorage.setItem('user-token', decodeURIComponent(location.href.split('callback/')[1]))
     API.defaults.headers.common.Authorization = 'Bearer ' + decodeURIComponent(location.href.split('callback/')[1])
-    this.$router.replace({ name: 'profile' })
+    this.$router.replace({ name: 'profile', params: { id: 'me' } })
   }
 }
 </script>
