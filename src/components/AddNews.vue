@@ -35,11 +35,7 @@
     <div class="AddComponent__input">
       Фото-превью
       <br><br>
-      <q-uploader
-        auto-upload
-        url="http://localhost:4444/upload"
-        color="primary"
-      />
+      <input type="file" id="file" ref="file" @change="handleFileUpload()" />
     </div>
     <div class="AddComponent__btn">
       <button @click="addEvent">Опубликовать</button>
@@ -49,6 +45,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import API from 'boot/API'
 export default {
   name: 'AddBlog',
   data () {
@@ -56,7 +53,9 @@ export default {
       title: null,
       description: null,
       place: null,
-      phone: null
+      phone: null,
+      file: '',
+      photos: []
     }
   },
   methods: {
@@ -64,7 +63,21 @@ export default {
       createEvent: 'events/createEvent'
     }),
     addEvent () {
-      this.createEvent({ title: this.title, description: this.description, place: this.place, phone: this.phone })
+      this.createEvent({ title: this.title, description: this.description, place: this.place, phone: this.phone, photos: this.photos })
+      this.$router.push({ name: 'news' })
+    },
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+      const formData = new FormData()
+      formData.append('file', this.file)
+      API.post('api/media', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          this.photos.push(response.data.data.id)
+        })
     }
   }
 }
