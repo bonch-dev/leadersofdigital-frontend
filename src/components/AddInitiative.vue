@@ -50,11 +50,7 @@
     <div class="AddComponent__input">
       Фото-превью
       <br><br>
-      <q-uploader
-          auto-upload
-          url="http://localhost:4444/upload"
-          color="primary"
-      />
+      <input type="file" id="file" ref="file" @change="handleFileUpload()" />
     </div>
     <div class="AddComponent__btn">
       <button @click="addInitiative()">Опубликовать</button>
@@ -64,6 +60,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import API from 'boot/API'
 export default {
   name: 'AddBlog',
   data () {
@@ -75,7 +72,9 @@ export default {
       geography: null,
       results: null,
       additional: null,
-      objective: null
+      objective: null,
+      file: '',
+      photos: []
     }
   },
   methods: {
@@ -91,8 +90,23 @@ export default {
         goals: this.goals,
         geography: this.geography,
         result: this.results,
-        additional: this.additional
+        additional: this.additional,
+        photos: this.photos
       })
+      this.$router.push({ name: 'initiative.current' })
+    },
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+      const formData = new FormData()
+      formData.append('file', this.file)
+      API.post('api/media', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          this.photos.push(response.data.data.id)
+        })
     }
   }
 }

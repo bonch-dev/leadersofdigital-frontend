@@ -46,11 +46,7 @@
     <div class="AddComponent__input">
       Фото-превью
       <br><br>
-      <q-uploader
-        auto-upload
-        url="http://localhost:4444/upload"
-        color="primary"
-      />
+      <input type="file" id="file" ref="file" @change="handleFileUpload()" />
     </div>
     <div class="AddComponent__btn">
       <button @click="createVote()">Опубликовать</button>
@@ -61,6 +57,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { date } from 'quasar'
+import API from 'boot/API'
 
 export default {
   name: 'AddVote',
@@ -72,6 +69,8 @@ export default {
       items: [
         { text: '' }
       ],
+      file: '',
+      photos: [],
       calenderLocale: {
         days: 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
         daysShort: 'ВС_ПН_ВТ_СР_ЧТ_ПТ_СБ'.split('_'),
@@ -90,8 +89,10 @@ export default {
         title: this.title,
         description: this.description,
         end_at: this.end_at + ' 00:00:00',
-        items: this.items
+        items: this.items,
+        photos: this.photos
       })
+      this.$router.push({ name: 'vote' })
     },
     calenderOptions (calendarDate) {
       const now = Date.now()
@@ -101,6 +102,19 @@ export default {
     },
     addQuestion () {
       this.items.push({ text: '' })
+    },
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
+      const formData = new FormData()
+      formData.append('file', this.file)
+      API.post('api/media', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          this.photos.push(response.data.data.id)
+        })
     }
   },
   beforeMount () {
