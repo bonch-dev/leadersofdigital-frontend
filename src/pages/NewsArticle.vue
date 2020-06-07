@@ -1,6 +1,6 @@
 <template>
   <div class='article'>
-    <div class="article__user flex items-center">
+    <div class="article__user flex items-center" @click="$router.push(`/profile/${event.user.id}`)">
       <div class="article__photo">
         <img :src="event.user.photo" alt="">
       </div>

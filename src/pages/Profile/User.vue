@@ -1,7 +1,7 @@
 <template>
   <div class='user'>
     <div class="user__preview">
-      <img :src="user.photo" alt="">
+      <img :src="user.photo" height="100" alt="">
       <div class="user__preview_right">
         <div class='stats'>
           <div>
