@@ -1,1 +1,38 @@
 // app global css in SCSS form
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.font-lable {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 110%;
+}
+
+.font-bold {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.font-header {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 110%;
+}
+
+.font-header2 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+.q-linear-progress {
+  color: #CFD3F8;
+}
