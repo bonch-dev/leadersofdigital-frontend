@@ -51,7 +51,7 @@
           </defs>
         </svg>
       </div>
-      <button v-if="event.karmed">
+      <button @click="rateEvent(event.id)" :disabled="!event.ranked">
         Поддержать
       </button>
     </div>

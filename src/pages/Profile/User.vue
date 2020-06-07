@@ -13,7 +13,8 @@
             <span class='font-bold'>{{ user.influence }}</span>
           </div>
         </div>
-        <button disabled>{{ false ? 'Объединиться' : 'Вы подписаны' }}</button>
+        <button v-if="this.$route.path === '/profile/me'" disabled>Ваш аккаунт</button>
+        <button v-if="!this.$route.path === '/profile/me'" disabled>{{ false ? 'Объединиться' : 'Вы подписаны' }}</button>
       </div>
     </div>
     <div class="user__info">
@@ -33,7 +34,7 @@
       <div>
         <h6 class='font-lable'>Ваш ранг</h6>
         <h5 class='font-bold'>Гражданин</h5>
-        <p class='font-lable'>Ранг влияет на ну на что-то же он влияет, ну вот тут и надо написать на что...</p>
+        <p class='font-lable'>Ваш ранг определяет доверие, оказанное вам, и влияет на то, сколько голосов “стоит” каждый ваш ответ в опросе</p>
       </div>
     </div>
     <q-tabs
