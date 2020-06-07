@@ -15,7 +15,7 @@ const mutations = {
     state.questions = payload
   },
   SET_QUESTION (state, payload) {
-    state.questions = payload
+    state.question = payload
   }
 }
 

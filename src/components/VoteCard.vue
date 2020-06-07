@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="voteCard__info">
-      <div class="voteCard__ttl" @click="$router.push({ name: 'vote.page', params: { id: id }})">{{item.title}}</div>
+      <div class="voteCard__ttl" @click="$router.push({ name: 'vote.page', params: { id: item.id }})">{{item.title}}</div>
       <div class="voteCard__date">до {{item.end_at | date}}</div>
       <div class="voteCard__footer flex items-center  justify-between">
         <div class="voteCard__rate flex items-center">

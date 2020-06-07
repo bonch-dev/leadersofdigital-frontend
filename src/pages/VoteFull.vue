@@ -2,20 +2,20 @@
   <div class='article'>
     <div class="article__user flex items-center">
       <div class="article__photo">
-        <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
+        <img :src="question.user.photo" alt="">
       </div>
       <div class="article__name">
-        Денис Липкович {{$route.params.id}}
-        {{question}}
+        {{question.user.name}}
       </div>
     </div>
-    <div class="article__date">Опрос закончится 7 ноября 2020</div>
-    <div class="article__title">Как я стал активистом: простая история о непростом выборе</div>
+    <div class="article__date">Опрос закончится {{question.end_at | date}}</div>
+    <div class="article__title">{{question.title}}</div>
     <div class="article__image">
-      <img src="../statics/images/news.png" alt="">
+      <img v-if="question.photos.length > 0" :src="question.photos[0].url" alt="">
+      <img v-if="question.photos.length < 1" src="../statics/images/news.png" alt="">
     </div>
     <div class="article__text">
-      Проект "Единство" - мобильное приложение, призванное не только выделить лидеров общественного мнения, но и предложить гражданам удобный аппарат создания инициатив.
+      {{question.description}}
     </div>
     <div class="poll__block" v-if="!results">
       <q-option-group
@@ -28,17 +28,22 @@
     <div class="poll__results" v-if="results">
       <q-linear-progress class="progress__bar" size="25px" :value="progress1" >
         <div class="absolute-full progress__text flex items-center">
-          Делаем конечно • 72%
+          Реализуем • {{progress1}}%
         </div>
       </q-linear-progress>
-      <q-linear-progress class="progress__bar" size="25px" :value="progress1" >
+      <q-linear-progress class="progress__bar" size="25px" :value="progress2" >
         <div class="absolute-full progress__text flex items-center">
-          Делаем конечно • 72%
+          Еще нужно все взвесить • {{progress2}}%
         </div>
       </q-linear-progress>
-      <q-linear-progress class="progress__bar" size="25px" :value="progress1" >
+      <q-linear-progress class="progress__bar" size="25px" :value="progress3" >
         <div class="absolute-full progress__text flex items-center">
-          Делаем конечно • 72%
+          Зависит от ситуации • {{progress3}}%
+        </div>
+      </q-linear-progress>
+      <q-linear-progress class="progress__bar" size="25px" :value="progress4" >
+        <div class="absolute-full progress__text flex items-center">
+          Не поддерживаю предложение • {{progress4}}%
         </div>
       </q-linear-progress>
     </div>
@@ -122,24 +127,24 @@
         </div>
       </div>
       <div class="col-6">
-        <button class="poll__btn" :class="{ unActive: results }" @click="sendPoll()"><span v-if="!results">Отдать голос</span><span v-if="results">Голоса отданы</span></button>
+        <button :disabled="!group" class="poll__btn" :class="{ unActive: results }" @click="sendPoll()"><span v-if="!results">Отдать голос</span><span v-if="results">Голоса отданы</span></button>
       </div>
     </div>
     <div class="poll__stat row flex items-center">
       <div class="col-8 flex items-center">
         <div class="poll__red">
           <img src="../statics/images/polls_red_rang.png" alt="">
-          +32
+          +0
         </div>
         <div class="poll__blue" style="margin-left: 8px;">
           <img src="../statics/images/polls_blue_rang.png" alt="">
-          +125
+          +{{votes}}
         </div>
       </div>
       <div class="col-4">
         <div class="poll__fullStat flex column items-end">
-          <div class="poll__polls">122 ответов</div>
-          <div class="poll__votes">122 ответов</div>
+          <div class="poll__polls">{{votes}} ответов</div>
+          <div class="poll__votes">{{votes}} голосов</div>
         </div>
       </div>
     </div>
@@ -155,7 +160,7 @@
           </defs>
         </svg>
       </div>
-      <div class="article__rating">23</div>
+      <div class="article__rating">{{question.karma}}</div>
       <div class="article__minus flex items-center">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
@@ -170,49 +175,50 @@
     </div>
     <div class="comment">
       <div class="comment__ttl">Комментарии</div>
-      <div class="comment__wrapper" v-for="item in 2" :key="item">
-        <div class="comment__user flex items-center">
-          <div class="comment__photo">
-            <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
-          </div>
-          <div class="comment__name">
-            Денис Липкович
-          </div>
-        </div>
-        <div class="comment__block">
-          <div class="comment__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur aut enim hic, in repudiandae sint totam ut vero. Consectetur, nemo!</div>
-          <div class="comment__rate flex">
-            <div class="comment__plus flex items-center">
-              <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>
-                <defs>
-                  <linearGradient id="paint0_linear" x1="0.799805" y1="0.399994" x2="15.2443" y2="3.3847" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#4065C5"/>
-                    <stop offset="1" stop-color="#8897E6"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <div class="comment__rating">23</div>
-            <div class="comment__minus flex items-center">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
-                <defs>
-                  <linearGradient id="paint0_linear" x1="0.941406" y1="0.941193" x2="15.6762" y2="1.61779" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#4065C5"/>
-                    <stop offset="1" stop-color="#8897E6"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class="comment__wrapper" v-for="item in 2" :key="item">-->
+<!--        <div class="comment__user flex items-center">-->
+<!--          <div class="comment__photo">-->
+<!--            <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">-->
+<!--          </div>-->
+<!--          <div class="comment__name">-->
+<!--            Денис Липкович-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="comment__block">-->
+<!--          <div class="comment__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur aut enim hic, in repudiandae sint totam ut vero. Consectetur, nemo!</div>-->
+<!--          <div class="comment__rate flex">-->
+<!--            <div class="comment__plus flex items-center">-->
+<!--              <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>-->
+<!--                <defs>-->
+<!--                  <linearGradient id="paint0_linear" x1="0.799805" y1="0.399994" x2="15.2443" y2="3.3847" gradientUnits="userSpaceOnUse">-->
+<!--                    <stop stop-color="#4065C5"/>-->
+<!--                    <stop offset="1" stop-color="#8897E6"/>-->
+<!--                  </linearGradient>-->
+<!--                </defs>-->
+<!--              </svg>-->
+<!--            </div>-->
+<!--            <div class="comment__rating">23</div>-->
+<!--            <div class="comment__minus flex items-center">-->
+<!--              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>-->
+<!--                <defs>-->
+<!--                  <linearGradient id="paint0_linear" x1="0.941406" y1="0.941193" x2="15.6762" y2="1.61779" gradientUnits="userSpaceOnUse">-->
+<!--                    <stop stop-color="#4065C5"/>-->
+<!--                    <stop offset="1" stop-color="#8897E6"/>-->
+<!--                  </linearGradient>-->
+<!--                </defs>-->
+<!--              </svg>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'VoteFullPage',
@@ -220,25 +226,42 @@ export default {
     return {
       group: null,
       results: false,
+      votes: 0,
       options: [
-        { label: 'Делаем конечно', value: 'bat' },
-        { label: 'Еще нужно все взвесить', value: 'friend' },
-        { label: 'Зависит от ситуации', value: 'upload' }
+        { label: 'Реализуем', value: '1' },
+        { label: 'Еще нужно все взвесить', value: '2' },
+        { label: 'Зависит от ситуации', value: '3' },
+        { label: 'Не поддерживаю предложение', value: '4' }
       ],
-      progress1: 0.3,
-      progress2: 0.9
+      progress1: 0,
+      progress2: 0,
+      progress3: 0,
+      progress4: 0
     }
   },
   methods: {
     sendPoll () {
+      if (this.group === '1') {
+        this.progress1 = 100
+      } else if (this.group === '2') {
+        this.progress2 = 100
+      } else if (this.group === '3') {
+        this.progress3 = 100
+      } else {
+        this.progress4 = 100
+      }
       this.results = true
+      this.votes++
     },
     ...mapActions({
       loadQuestion: 'questions/loadQuestion'
-    })
+    }),
+    moment () {
+      return moment()
+    }
   },
   beforeMount () {
-    this.loadQuestion(this.$route.params)
+    this.loadQuestion(this.$route.params.id)
   },
   computed: {
     ...mapGetters({
@@ -250,6 +273,20 @@ export default {
 
     progressLabel2 () {
       return (this.progress2 * 100).toFixed(2) + '%'
+    },
+
+    progressLabel3 () {
+      return (this.progress3 * 100).toFixed(2) + '%'
+    },
+
+    progressLabel4 () {
+      return (this.progress4 * 100).toFixed(2) + '%'
+    }
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD MMM YYYY')
     }
   }
 }
