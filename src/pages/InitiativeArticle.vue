@@ -5,16 +5,16 @@
         <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
       </div>
       <div class="article__name">
-        Денис Липкович {{$route.params.id}}
+        Vladimir Chernomyrdin
       </div>
     </div>
     <div class="article__date">16 ноября 2019</div>
-    <div class="article__title">Как я стал активистом: простая история о непростом выборе</div>
-    <div class="article__position font-lable">
+    <div class="article__title">Школа разработки IT-проектов 2020.</div>
+    <div class="article__position font-lable flex items-center">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7094 11.8833C10.1186 12.6723 9.42643 13.5968 8.61662 14.6974C8.31869 15.1009 7.68134 15.1009 7.38338 14.6974C6.57357 13.5968 5.88138 12.6723 5.29062 11.8833C2.56899 8.24839 2 7.48847 2 5.625C2 2.51839 4.68628 0 8 0C11.3137 0 14 2.51839 14 5.625C14 7.48847 13.431 8.24839 10.7094 11.8833ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z" fill="#0C1120"/>
       </svg>
-      Дальневосточный 71
+      <div style="max-width: 250px; margin-left: 10px;">Санкт-Петербург, Проспект Большевиков, 22</div>
     </div>
     <div class="article__image">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/5yx6BWlEVcY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
