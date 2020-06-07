@@ -82,7 +82,7 @@ const actions = {
         })
     })
   },
-  postComment ({commit}, data) {
+  postComment ({ commit }, data) {
     return new Promise((resolve, reject) => {
       API.post(`api/posts/${data.id}/comment`, data.text)
         .then(response => {

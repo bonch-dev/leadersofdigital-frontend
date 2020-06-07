@@ -1,7 +1,7 @@
 <template>
   <div class="AddComponent">
-    <div class="AddComponent__title">Новое обращение</div>
-    <div class="AddComponent__description">Тут вы можете поделиться вашей проблемой или предложить идею, способную улучшить жизнь города</div>
+    <div class="AddComponent__title">Новый проект</div>
+    <div class="AddComponent__description">Тут вы можете создать проект, который изменит города</div>
     <div class="AddComponent__input">
       Наименование
       <q-input v-model="title" color="primary" counter maxlength="50" placeholder="Укажите наименование обращения">
@@ -27,7 +27,11 @@
     </div>
     <div class="AddComponent__input addMargin">
       Цели
-      <q-input v-model="video" color="primary" ></q-input>
+      <q-input v-model="goals" color="primary" ></q-input>
+    </div>
+    <div class="AddComponent__input addMargin">
+      Задачи
+      <q-input v-model="objective" color="primary" ></q-input>
     </div>
     <div class="AddComponent__input addMargin">
       Результы проекта
@@ -70,7 +74,8 @@ export default {
       goals: null,
       geography: null,
       results: null,
-      additional: null
+      additional: null,
+      objective: null
     }
   },
   methods: {
@@ -79,13 +84,13 @@ export default {
     }),
     addInitiative: function () {
       this.createInitiative({
-        title: [this.title],
-        description: [this.description],
+        title: this.title,
+        description: this.description,
         video_url: this.video,
         objective: this.objective,
         goals: this.goals,
         geography: this.geography,
-        results: this.results,
+        result: this.results,
         additional: this.additional
       })
     }

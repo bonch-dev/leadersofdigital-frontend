@@ -4,7 +4,7 @@
     <div class="AddComponent__description">Тут вы можете поделиться своими мыслями</div>
     <div class="AddComponent__input">
       Наименование
-      <q-input v-model="name" color="primary" counter maxlength="50">
+      <q-input v-model="title" color="primary" counter maxlength="50">
         <template v-slot:hint></template>
       </q-input>
     </div>
@@ -30,18 +30,31 @@
       />
     </div>
     <div class="AddComponent__btn">
-      <button>Опубликовать</button>
+      <button @click="addPost()">Опубликовать</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'AddBlog',
   data () {
     return {
-      name: null,
+      title: null,
       description: null
+    }
+  },
+  methods: {
+    ...mapActions({
+      createPost: 'posts/createPost'
+    }),
+    addPost () {
+      this.createPost({
+        title: this.title,
+        text: this.description
+      })
     }
   }
 }
