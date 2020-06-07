@@ -6,6 +6,7 @@ import events from './events'
 import initiatives from './initiatives'
 import comments from './comments'
 import posts from './posts'
+import questions from './questions'
 
 // import example from './module-example'
 
@@ -27,7 +28,8 @@ export default function (/* { ssrContext } */) {
       events,
       initiatives,
       comments,
-      posts
+      posts,
+      questions
     },
 
     // enable strict mode (adds overhead!)

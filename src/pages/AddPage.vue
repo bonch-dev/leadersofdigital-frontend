@@ -1,6 +1,5 @@
 <template>
   <div class='article'>
-    {{$route.params}}
     <add-blog v-if="$route.params.type === 'blog'"></add-blog>
     <add-news v-if="$route.params.type === 'news'"></add-news>
     <add-initiative v-if="$route.params.type === 'initiative.current'"></add-initiative>
