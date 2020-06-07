@@ -5,22 +5,19 @@
         <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
       </div>
       <div class="article__name">
-        Денис Липкович {{$route.params.id}}
+        {{ post.user.name }}
       </div>
     </div>
-      <div class="article__date">16 ноября 2019</div>
-      <div class="article__title">Как я стал активистом: простая история о непростом выборе</div>
+      <div class="article__date">{{post.created_at}}</div>
+      <div class="article__title">{{post.title}}</div>
       <div class="article__image">
         <img src="../statics/images/news.png" alt="">
       </div>
       <div class="article__text">
-        <p>Как вы думаете, почему на картинке из интернета про активизм присутствует черный котик? Он, несомненно, очень красивый, но как он связан с тематикой?</p>
-        <p>Начнем издалека... С древних времен с черной кошкой, окруженной мистическим ореолом, связывали множество примет и предрассудков. Из-за черного окраса этих красивых созданий люди обвиняли в различных бедствиях, а некоторые считали черную кошку пособником сатаны или по крайней мере – ведьмы.</p>
-        <p>Приметы и суеверия, связанные с черными кошками, бытуют по сей день — наверное, многие помнят песню, популярную в прошлом веке, посвященную черному коту: "Говорят не повезет, если черный кот дорогу перейдет…".</p>
-        <p>Также говорят и про активистов: мол, если им стать, то тоже не повезет. Так же как я не верю в суеверия про милых кошек, я не верю и в это. Именно поэтому, друзья, я и стал общественным активистом! Любите кошек и себя!</p>
+        <p>{{post.text}}</p>
       </div>
       <div class="article__rate flex items-center">
-        <div class="article__plus flex items-center">
+        <div class="article__plus flex items-center" @click="downEvent" :disabled="post.karmed === -1">
           <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>
             <defs>
@@ -31,8 +28,8 @@
             </defs>
           </svg>
         </div>
-        <div class="article__rating">23</div>
-        <div class="article__minus flex items-center">
+        <div class="article__rating">{{post.karma}}</div>
+        <div class="article__minus flex items-center" @click="upEvent" :disabled="post.karmed === 1">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
             <defs>
@@ -46,17 +43,17 @@
       </div>
       <div class="comment">
         <div class="comment__ttl">Комментарии</div>
-        <div class="comment__wrapper" v-for="item in 2" :key="item">
+        <div class="comment__wrapper" v-for="item in post.comments" :key="item">
           <div class="comment__user flex items-center">
             <div class="comment__photo">
               <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
             </div>
             <div class="comment__name">
-              Денис Липкович
+              {{item.user.name}}
             </div>
           </div>
           <div class="comment__block">
-            <div class="comment__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur aut enim hic, in repudiandae sint totam ut vero. Consectetur, nemo!</div>
+            <div class="comment__text">{{item.text}}</div>
             <div class="comment__rate flex">
               <div class="comment__plus flex items-center">
                 <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +66,7 @@
                   </defs>
                 </svg>
               </div>
-              <div class="comment__rating">23</div>
+              <div class="comment__rating">{{item.karma}}</div>
               <div class="comment__minus flex items-center">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
@@ -84,23 +81,95 @@
             </div>
           </div>
         </div>
+        <div>
+          <q-input
+              v-model="text"
+              placeholder="Оставьте комментарий..."
+              filled
+              type="textarea"
+          />
+          <button class="comment-btn" @click="comment" :disabled="!text">Отправить</button>
+        </div>
       </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'ArticlePage',
   data () {
     return {
-      news: [
-      ]
+      text: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      post: 'posts/post'
+    })
+  },
+  methods: {
+    ...mapActions({
+      loadPost: 'posts/loadPost',
+      postComment: 'posts/postComment',
+      karmaUpPost: 'posts/karmaUpPost',
+      karmaDownPost: 'posts/karmaDownPost',
+      karmaUp: 'comments/karmaUp',
+      karmaDown: 'comments/karmaDown'
+    }),
+    comment () {
+      const data = {
+        id: this.event.id,
+        text: this.text
+      }
+      this.postComment(data)
+        .then(() => {
+          this.loadPost(this.post.id)
+        })
+    },
+    upEvent () {
+      this.karmaUpEvent(this.post.id)
+        .then(() => {
+          this.loadPost(this.post.id)
+        })
+    },
+    downEvent () {
+      this.karmaDownEvent(this.post.id)
+        .then(() => {
+          this.loadPost(this.post.id)
+        })
+    },
+    commentKarmaUp (id) {
+      this.karmaUp()
+        .then(() => {
+          this.loadPost(this.post.id)
+        })
+    },
+    commentKarmaDown (id) {
+      this.karmaDown()
+        .then(() => {
+          this.loadPost(this.post.id)
+        })
+    }
+  },
+  beforeMount () {
+    this.loadPost(this.$route.params.id)
   }
 }
 </script>
 
 <style lang='scss' scoped>
+.comment-btn {
+  margin-left: auto;
+  margin-right: 0;
+  background: $button-blue;
+  border: none;
+  color: white;
+  padding: 11px 20px;
+  border-radius: 3px;
+  display: flex;
+  margin-top: 15px;
+}
 .article {
   padding: 30px 32px;
   &__photo {

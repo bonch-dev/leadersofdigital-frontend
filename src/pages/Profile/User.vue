@@ -19,7 +19,7 @@
     <div class="user__info">
       <div class='flex'>
         <h2 class='font-header no-margin q-pr-md'>{{ user.name }}</h2>
-        <q-icon v-if="false" class="fa fa-edit" style="font-size: 20px; color: #989898;"></q-icon>
+        <q-icon v-if="this.$route.path === '/profile/me'" class="fa fa-edit" style="font-size: 20px; color: #989898;"></q-icon>
       </div>
       <p>Я люблю свой район и хочу сделать его лучше! Приходите на мои мероприятия, вместе мы сможем все!</p>
       <div class="user__info_social">

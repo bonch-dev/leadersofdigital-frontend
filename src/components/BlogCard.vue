@@ -4,10 +4,10 @@
       <img src="../statics/images/news.png" alt="">
       <div class="blogCard__header flex justify-between items-center">
         <div class="blogCard__user flex items-center">
-          <div class="blogCard__photo" @click="$router.push({ name: 'blog.article', params: { id: id }})">
-            <img :src="user.image" alt="">
+          <div class="blogCard__photo" @click="$router.push({ name: 'blog.article', params: { id: post.id }})">
+            <img :src="post.user.photo" alt="">
           </div>
-          <div class="blogCard__name">{{user.name}}</div>
+          <div class="blogCard__name">{{post.user.name}}</div>
         </div>
         <div class="blogCard__edit">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,10 +17,10 @@
       </div>
     </div>
     <div class="blogCard__info">
-      <div class="blogCard__date">{{date}}</div>
-      <div class="blogCard__ttl" @click="$router.push({ name: 'blog.article', params: { id: id }})">{{title}}</div>
+      <div class="blogCard__date">{{ post.created_at}}</div>
+      <div class="blogCard__ttl" @click="$router.push({ name: 'blog.article', params: { id: post.id }})">{{post.title}}</div>
       <div class="blogCard__rate flex items-center">
-        <div class="blogCard__plus flex items-center">
+        <div @click="downPost" :disabled="post.karmed === -1" class="blogCard__plus flex items-center">
           <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>
             <defs>
@@ -31,8 +31,8 @@
             </defs>
           </svg>
         </div>
-        <div class="blogCard__rating">{{rating}}</div>
-        <div class="blogCard__minus flex items-center">
+        <div class="blogCard__rating">{{post.karma}}</div>
+        <div @click="upPost" :disabled="post.karmed === 1" class="blogCard__minus flex items-center">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
             <defs>
@@ -49,27 +49,35 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'blogCard',
   data () {
     return {
     }
   },
-  computed: {
-    // ...mapGetters({
-    //   eventsAll: 'events/eventsAll'
-    // })
-  },
   methods: {
-    // ...mapActions({})
+    ...mapActions({
+      loadPosts: 'posts/loadPosts',
+      karmaUpPost: 'posts/karmaUpPost',
+      karmaDownPost: 'posts/karmaDownPost'
+    }),
+    upPost () {
+      this.karmaUpPost(this.post.id)
+        .then(() => {
+          this.loadPosts()
+        })
+    },
+    downPost () {
+      this.karmaDownPost(this.post.id)
+        .then(() => {
+          this.loadPosts()
+        })
+    }
   },
   props: [
-    'user',
-    'title',
-    'date',
-    'id',
-    'rating'
+    'post'
   ]
 }
 </script>

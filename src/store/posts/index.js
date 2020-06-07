@@ -1,16 +1,21 @@
 import API from '../../boot/API'
 
 const state = {
+  post: {},
   posts: []
 }
 
 const getters = {
+  post: state => state.post,
   posts: state => state.posts
 }
 
 const mutations = {
   SET_POSTS (state, payload) {
     state.posts = payload
+  },
+  SET_POST (state, payload) {
+    state.post = payload
   }
 }
 
@@ -19,8 +24,18 @@ const actions = {
     return new Promise((resolve, reject) => {
       API.get('api/posts')
         .then(response => {
-          console.log(response.data.data)
           commit('SET_POSTS', response.data.data)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  loadPost ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      API.get(`api/posts/${id}`)
+        .then(response => {
+          commit('SET_POST', response.data.data)
         })
         .catch(error => {
           reject(error)
@@ -82,9 +97,9 @@ const actions = {
         })
     })
   },
-  postComment ({commit}, data) {
+  postComment ({ commit }, data) {
     return new Promise((resolve, reject) => {
-      API.post(`api/posts/${data.id}/comment`, data.text)
+      API.post(`api/posts/${data.id}/comment`, { text: data.text })
         .then(response => {
           //
         })

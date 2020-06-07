@@ -144,9 +144,15 @@ export default {
     },
     upEvent () {
       this.karmaUpEvent(this.event.id)
+        .then(() => {
+          this.loadEvent(this.event.id)
+        })
     },
     downEvent () {
       this.karmaDownEvent(this.event.id)
+        .then(() => {
+          this.loadEvent(this.event.id)
+        })
     },
     commentKarmaUp (id) {
       this.karmaUp()
