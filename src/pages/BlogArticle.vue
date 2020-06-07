@@ -2,7 +2,7 @@
   <div class='article'>
     <div class="article__user flex items-center">
       <div class="article__photo">
-        <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
+        <img :src="post.user.photo" alt="">
       </div>
       <div class="article__name">
         {{ post.user.name }}
@@ -46,7 +46,7 @@
         <div class="comment__wrapper" v-for="item in post.comments" :key="item">
           <div class="comment__user flex items-center">
             <div class="comment__photo">
-              <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
+              <img :src="post.user.photo" alt="">
             </div>
             <div class="comment__name">
               {{item.user.name}}
