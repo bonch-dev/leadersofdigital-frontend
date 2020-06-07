@@ -6,7 +6,7 @@
       </svg>
       <div class='flex items-center'>
         <q-select borderless
-          v-model="model"
+          v-model="filt"
           :options="options"
           label="Самые новые"
           disable
@@ -30,6 +30,7 @@ import NewsCard from 'components/NewsCard'
 export default {
   data () {
     return {
+      filt: null,
       options: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ]

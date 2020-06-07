@@ -6,6 +6,7 @@
       </div>
       <div class="article__name">
         Денис Липкович {{$route.params.id}}
+        {{question}}
       </div>
     </div>
     <div class="article__date">Опрос закончится 7 ноября 2020</div>
@@ -212,6 +213,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'VoteFullPage',
   data () {
@@ -230,9 +232,18 @@ export default {
   methods: {
     sendPoll () {
       this.results = true
-    }
+    },
+    ...mapActions({
+      loadQuestion: 'questions/loadQuestion'
+    })
+  },
+  beforeMount () {
+    this.loadQuestion(this.$route.params)
   },
   computed: {
+    ...mapGetters({
+      question: 'questions/question'
+    }),
     progressLabel1 () {
       return (this.progress1 * 100).toFixed(2) + '%'
     },

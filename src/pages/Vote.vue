@@ -1,11 +1,12 @@
 <template>
   <div class='blog'>
-    <vote-card v-for="item in news" :key="item.id" :user="item.user" :title="item.title" :date="item.date" :id="item.id" :rating="item.rating" ></vote-card>
+    <vote-card v-for="item in questions" :key="item.id" :item="item" ></vote-card>
   </div>
 </template>
 
 <script>
 import VoteCard from 'components/VoteCard'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -14,6 +15,19 @@ export default {
         { id: 2, user: { name: 'Владимир Черномырдин', image: 'https://sun9-24.userapi.com/c848520/v848520664/1ee6ff/m879mlD_gfs.jpg' }, date: '16 ноября 2019', title: 'Как я стал активистом: простая история о непростом выборе', rating: 32 }
       ]
     }
+  },
+  beforeMount () {
+    this.loadQuestions()
+  },
+  methods: {
+    ...mapActions({
+      loadQuestions: 'questions/loadQuestions'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      questions: 'questions/questions'
+    })
   },
   components: { VoteCard }
 }

@@ -16,12 +16,12 @@
           </div>
         </div>
         <div @click="$router.push({ name: 'news.article', params: { id: event.id }})">
-          <img src="../statics/images/card-img.png" width="100%">
+          <img v-if="event.photos.length < 1" src="../statics/images/card-img.png" width="100%">
+          <img v-if="event.photos.length > 0" :src="event.photos[0].url" width="100%">
         </div>
-
         <q-card-section>
           <div class="time-card q-mb-sm text-dark font-lable">
-            {{ event.created_at }}
+            {{ event.created_at | date }}
           </div>
           <div class="ttl-card q-mb-sm font-header2"
                style="line-height: 28px !important; color: #000 !important;"
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapActions } from 'vuex'
 export default {
   name: 'Events',
@@ -129,6 +130,9 @@ export default {
       karmaUpEvent: 'events/karmaUpEvent',
       karmaDownEvent: 'events/karmaDownEvent'
     }),
+    moment () {
+      return moment()
+    },
     rate () {
       if (this.event.rated) {
         this.unrateEvent(this.event.id)
@@ -153,6 +157,12 @@ export default {
         .then(() => {
           this.loadEvents()
         })
+    }
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD MMM YYYY')
     }
   }
 }

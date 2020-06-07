@@ -8,7 +8,7 @@
         {{ post.user.name }}
       </div>
     </div>
-      <div class="article__date">{{post.created_at}}</div>
+      <div class="article__date">{{post.created_at | date}}</div>
       <div class="article__title">{{post.title}}</div>
       <div class="article__image">
         <img src="../statics/images/news.png" alt="">
@@ -96,6 +96,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'ArticlePage',
   data () {
@@ -117,6 +118,9 @@ export default {
       karmaUp: 'comments/karmaUp',
       karmaDown: 'comments/karmaDown'
     }),
+    moment () {
+      return moment()
+    },
     comment () {
       const data = {
         id: this.event.id,
@@ -150,6 +154,12 @@ export default {
         .then(() => {
           this.loadPost(this.post.id)
         })
+    }
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD MMM YYYY')
     }
   },
   beforeMount () {

@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="blogCard__info">
-      <div class="blogCard__date">{{ post.created_at}}</div>
+      <div class="blogCard__date">{{ post.created_at | date }}</div>
       <div class="blogCard__ttl" @click="$router.push({ name: 'blog.article', params: { id: post.id }})">{{post.title}}</div>
       <div class="blogCard__rate flex items-center">
         <div @click="downPost" :disabled="post.karmed === -1" class="blogCard__plus flex items-center">
@@ -50,7 +50,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-
+import moment from 'moment'
 export default {
   name: 'blogCard',
   data () {
@@ -63,6 +63,9 @@ export default {
       karmaUpPost: 'posts/karmaUpPost',
       karmaDownPost: 'posts/karmaDownPost'
     }),
+    moment () {
+      return moment()
+    },
     upPost () {
       this.karmaUpPost(this.post.id)
         .then(() => {
@@ -74,6 +77,12 @@ export default {
         .then(() => {
           this.loadPosts()
         })
+    }
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD MMM YYYY')
     }
   },
   props: [

@@ -1,15 +1,20 @@
 import API from '../../boot/API'
 
 const state = {
-  questions: []
+  questions: [],
+  question: null
 }
 
 const getters = {
-  questions: state => state.questions
+  questions: state => state.questions,
+  question: state => state.question
 }
 
 const mutations = {
-  SET_POSTS (state, payload) {
+  SET_QUESTIONS (state, payload) {
+    state.questions = payload
+  },
+  SET_QUESTION (state, payload) {
     state.questions = payload
   }
 }
@@ -19,8 +24,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       API.get('api/questions')
         .then(response => {
-          console.log(response.data.data)
-          commit('SET_POSTS', response.data.data)
+          commit('SET_QUESTIONS', response.data.data)
         })
         .catch(error => {
           reject(error)
@@ -32,6 +36,17 @@ const actions = {
       API.post('api/questions', data)
         .then(response => {
           //
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  loadQuestion ({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      API.get('api/questions/' + data)
+        .then(response => {
+          commit('SET_QUESTION', response.data.data)
         })
         .catch(error => {
           reject(error)

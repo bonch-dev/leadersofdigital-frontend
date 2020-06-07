@@ -4,11 +4,11 @@
       <div class="article__photo">
         <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
       </div>
-      <div class="article__name">
+      <div class="article__name" v-if="event.user">
         {{ event.user.name }}
       </div>
     </div>
-    <div class="article__date">{{ event.created_at }}</div>
+    <div class="article__date">{{ event.created_at | date }}</div>
     <div class="article__title">{{ event.title }}</div>
     <div class="article__position font-lable flex items-center">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,6 +110,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'ArticlePage',
   data () {
@@ -165,10 +166,19 @@ export default {
         .then(() => {
           this.loadEvent(this.event.id)
         })
+    },
+    moment () {
+      return moment()
     }
   },
   beforeMount () {
     this.loadEvent(this.$route.params.id)
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD MMM YYYY')
+    }
   }
 }
 </script>

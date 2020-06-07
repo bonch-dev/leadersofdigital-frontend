@@ -51,7 +51,7 @@ export default {
     }),
     addPost () {
       this.createPost({ title: this.title, text: this.description, photos: this.photos })
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'blog' })
     },
     handleFileUpload () {
       this.file = this.$refs.file.files[0]

@@ -1,13 +1,14 @@
 <template>
   <div class="voteCard">
     <div class="voteCard__image">
-      <img src="../statics/images/news.png" alt="">
+      <img v-if="item.photos.length < 1" src="../statics/images/news.png" alt="">
+      <img v-if="item.photos.length > 0" :src="item.photos[0].url" alt="">
       <div class="voteCard__header flex justify-between items-center">
         <div class="voteCard__user flex items-center">
           <div class="voteCard__photo">
-            <img :src="user.image" alt="">
+            <img :src="item.user.photo" alt="">
           </div>
-          <div class="voteCard__name">{{user.name}}</div>
+          <div class="voteCard__name">{{item.user.name}}</div>
         </div>
         <div class="voteCard__edit">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,8 +18,8 @@
       </div>
     </div>
     <div class="voteCard__info">
-      <div class="voteCard__ttl" @click="$router.push({ name: 'vote.page', params: { id: id }})">{{title}}</div>
-      <div class="voteCard__date">{{date}}</div>
+      <div class="voteCard__ttl" @click="$router.push({ name: 'vote.page', params: { id: id }})">{{item.title}}</div>
+      <div class="voteCard__date">до {{item.end_at | date}}</div>
       <div class="voteCard__footer flex items-center  justify-between">
         <div class="voteCard__rate flex items-center">
           <div class="voteCard__plus flex items-center">
@@ -32,7 +33,7 @@
               </defs>
             </svg>
           </div>
-          <div class="voteCard__rating">{{rating}}</div>
+          <div class="voteCard__rating">{{item.karma}}</div>
           <div class="voteCard__minus flex items-center">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
@@ -119,7 +120,7 @@
               </defs>
             </svg>
           </div>
-          <div class="rang__stat">1234 ответов</div>
+          <div class="rang__stat">{{item.votes_sum}} ответов</div>
         </div>
       </div>
     </div>
@@ -127,27 +128,26 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'voteCard',
   data () {
     return {
     }
   },
-  computed: {
-    // ...mapGetters({
-    //   eventsAll: 'events/eventsAll'
-    // })
-  },
   methods: {
-    // ...mapActions({})
+    moment () {
+      return moment()
+    }
+  },
+  filters: {
+    date: function (date) {
+      moment.locale('ru')
+      return moment(date).format('DD.MM.YYYY')
+    }
   },
   props: [
-    'user',
-    'title',
-    'date',
-    'id',
-    'rating'
+    'item'
   ]
 }
 </script>
@@ -162,6 +162,7 @@ export default {
     &__image {
       position: relative;
       max-height: 158px;
+      overflow: hidden;
       & img {
         width: 100%;
       }
