@@ -17,8 +17,8 @@
         </svg>
       </div>
     </div>
-    <div class="news__items" v-if="show">
-      <news-card v-for="item in events" :key="item.id" :user="item.user" :title="item.title" :date="news[1].date" :id="item.id" :position="item.place" :like="item.karma" :rating="item.rate" ></news-card>
+    <div class="news__items">
+      <news-card v-for="item in events" :key="item.id" :event="item"></news-card>
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ import NewsCard from 'components/NewsCard'
 export default {
   data () {
     return {
-      show: false,
       options: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ],
@@ -55,9 +54,6 @@ export default {
   },
   beforeMount () {
     this.loadEvents()
-      .then(() => {
-        this.show = true
-      })
   }
 }
 </script>

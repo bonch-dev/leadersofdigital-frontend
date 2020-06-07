@@ -5,33 +5,30 @@
         <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
       </div>
       <div class="article__name">
-        Денис Липкович {{$route.params.id}}
+        {{ event.user.name }}
       </div>
     </div>
-    <div class="article__date">16 ноября 2019</div>
-    <div class="article__title">Как я стал активистом: простая история о непростом выборе</div>
-    <div class="article__position font-lable">
+    <div class="article__date">{{ event.created_at }}</div>
+    <div class="article__title">{{ event.title }}</div>
+    <div class="article__position font-lable flex items-center">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.7094 11.8833C10.1186 12.6723 9.42643 13.5968 8.61662 14.6974C8.31869 15.1009 7.68134 15.1009 7.38338 14.6974C6.57357 13.5968 5.88138 12.6723 5.29062 11.8833C2.56899 8.24839 2 7.48847 2 5.625C2 2.51839 4.68628 0 8 0C11.3137 0 14 2.51839 14 5.625C14 7.48847 13.431 8.24839 10.7094 11.8833ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z" fill="#0C1120"/>
       </svg>
-      Дальневосточный 71
+      <div style="max-width: 250px; margin-left: 10px;">{{ event.place }}</div>
     </div>
     <div class="article__image">
       <img src="../statics/images/news-11.png" alt="">
       <img src="../statics/images/news-12.png" alt="">
     </div>
-    <div class="article__text">
-      <p>Как вы думаете, почему на картинке из интернета про активизм присутствует черный котик? Он, несомненно, очень красивый, но как он связан с тематикой?</p>
-      <p>Начнем издалека... С древних времен с черной кошкой, окруженной мистическим ореолом, связывали множество примет и предрассудков. Из-за черного окраса этих красивых созданий люди обвиняли в различных бедствиях, а некоторые считали черную кошку пособником сатаны или по крайней мере – ведьмы.</p>
-      <p>Приметы и суеверия, связанные с черными кошками, бытуют по сей день — наверное, многие помнят песню, популярную в прошлом веке, посвященную черному коту: "Говорят не повезет, если черный кот дорогу перейдет…".</p>
-      <p>Также говорят и про активистов: мол, если им стать, то тоже не повезет. Так же как я не верю в суеверия про милых кошек, я не верю и в это. Именно поэтому, друзья, я и стал общественным активистом! Любите кошек и себя!</p>
+    <div class="article__text q-mt-md">
+      <p>{{ event.description }}</p>
     </div>
     <div class="article__phone">
       <p class="font-lable">Связаться по вопросу:</p>
-      <span class="font-text">+7 983 564 76 34</span>
+      <span class="font-text">{{ event.phone }}</span>
     </div>
     <div class="article__rate flex items-center">
-      <div class="article__plus flex items-center">
+      <div class="article__plus flex items-center" @click="downEvent" :disabled="event.karmed === -1">
         <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>
           <defs>
@@ -42,8 +39,8 @@
           </defs>
         </svg>
       </div>
-      <div class="article__rating">23</div>
-      <div class="article__minus flex items-center">
+      <div class="article__rating">{{ event.karma }}</div>
+      <div class="article__minus flex items-center" @click="upEvent" :disabled="event.karmed === 1">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
           <defs>
@@ -54,25 +51,25 @@
           </defs>
         </svg>
       </div>
-      <button>
+      <button v-if="event.karmed">
         Поддержать
       </button>
     </div>
     <div class="comment">
       <div class="comment__ttl">Комментарии</div>
-      <div class="comment__wrapper" v-for="item in 2" :key="item">
+      <div class="comment__wrapper" v-for="item in event.comments" :key="item.id">
         <div class="comment__user flex items-center">
           <div class="comment__photo">
             <img src="https://sun9-29.userapi.com/c854420/v854420062/8e3c8/PWyEg512mqo.jpg" alt="">
           </div>
           <div class="comment__name">
-            Денис Липкович
+            {{ item.user.name }}
           </div>
         </div>
         <div class="comment__block">
-          <div class="comment__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur aut enim hic, in repudiandae sint totam ut vero. Consectetur, nemo!</div>
+          <div class="comment__text">{{ item.text }}</div>
           <div class="comment__rate flex">
-            <div class="comment__plus flex items-center">
+            <div class="comment__plus flex items-center" @click="commentKarmaDown(item.id)" :disabled="item.karmed === -1">
               <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.799805 0.399994H15.1998V3.59999H0.799805V0.399994Z" fill="url(#paint0_linear)"/>
                 <defs>
@@ -83,8 +80,8 @@
                 </defs>
               </svg>
             </div>
-            <div class="comment__rating">23</div>
-            <div class="comment__minus flex items-center">
+            <div class="comment__rating">{{ item.karma }}</div>
+            <div class="comment__minus flex items-center" @click="commentKarmaUp(item.id)" :disabled="item.karmed === 1">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.0591 6.37106V9.62898H9.62919V15.0588H6.37127V9.62898H0.941406V6.37106H6.37127V0.941193H9.62919V6.37106H15.0591Z" fill="url(#paint0_linear)"/>
                 <defs>
@@ -98,23 +95,90 @@
           </div>
         </div>
       </div>
+      <div>
+        <q-input
+            v-model="text"
+            placeholder="Оставьте комментарий..."
+            filled
+            type="textarea"
+        />
+        <button class="comment-btn" @click="comment" :disabled="!text">Отправить</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'ArticlePage',
   data () {
     return {
-      news: [
-      ]
+      text: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      event: 'events/event'
+    })
+  },
+  methods: {
+    ...mapActions({
+      loadEvent: 'events/loadEvent',
+      rateEvent: 'events/rateEvent',
+      eventComment: 'events/eventComment',
+      karmaUpEvent: 'events/karmaUpEvent',
+      karmaDownEvent: 'events/karmaDownEvent',
+      karmaUp: 'comments/karmaUp',
+      karmaDown: 'comments/karmaDown'
+    }),
+    comment () {
+      const data = {
+        id: this.event.id,
+        text: this.text
+      }
+      this.eventComment(data)
+        .then(() => {
+          this.loadEvent(this.event.id)
+        })
+    },
+    upEvent () {
+      this.karmaUpEvent(this.event.id)
+    },
+    downEvent () {
+      this.karmaDownEvent(this.event.id)
+    },
+    commentKarmaUp (id) {
+      this.karmaUp()
+        .then(() => {
+          this.loadEvent(this.event.id)
+        })
+    },
+    commentKarmaDown (id) {
+      this.karmaDown()
+        .then(() => {
+          this.loadEvent(this.event.id)
+        })
+    }
+  },
+  beforeMount () {
+    this.loadEvent(this.$route.params.id)
   }
 }
 </script>
 
 <style lang='scss' scoped>
+.comment-btn {
+  margin-left: auto;
+  margin-right: 0;
+  background: $button-blue;
+  border: none;
+  color: white;
+  padding: 11px 20px;
+  border-radius: 3px;
+  display: flex;
+  margin-top: 15px;
+}
 .article {
   padding: 30px 32px;
   &__photo {
