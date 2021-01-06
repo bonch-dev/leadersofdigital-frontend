@@ -18,7 +18,7 @@
   "dependencies": {
     "@quasar/app": "^1.0.0",
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.0.1",
     "bonch.dev-quasar-gitlab-ci": "^0.2.0",
     "eslint": "^6.8.0",
